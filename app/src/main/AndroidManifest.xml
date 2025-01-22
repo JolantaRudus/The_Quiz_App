@@ -13,6 +13,12 @@
         android:theme="@style/Theme.TheQuizApp"
         tools:targetApi="31">
         <activity
+            android:name=".New_picture"
+            android:exported="false" />
+        <activity
+            android:name=".Quiz"
+            android:exported="false" />
+        <activity
             android:name=".Gallery"
             android:exported="true">
             <intent-filter>
