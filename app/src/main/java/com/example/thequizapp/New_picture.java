@@ -40,7 +40,7 @@ public class New_picture extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //gives user option to add a picture from the image gallery
+        //gives user option to add a picture from the image gallery.
         addPhotoButton = findViewById(R.id.addPhoto);
         addPhotoButton.setOnClickListener(v ->{
             Log.d("New_picture", "addPhoto button clicked");
