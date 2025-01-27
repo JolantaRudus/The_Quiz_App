@@ -57,14 +57,14 @@ public class Gallery extends AppCompatActivity {
         // List of image items objects with their corresponding image resource IDs and titles
         List<ImageItem> imageList = new ArrayList<>();
         imageList.add(new ImageItem(1, R.drawable.antilope, "Antelope"));
-        imageList.add(new ImageItem(2, R.drawable.cat, "Cat"));
+        //imageList.add(new ImageItem(2, R.drawable.cat, "Cat"));
         imageList.add(new ImageItem(3, R.drawable.dog,"Dog"));
         imageList.add(new ImageItem(4, R.drawable.fox, "Fox"));
         imageList.add(new ImageItem(5, R.drawable.giraffe, "Giraffe"));
         imageList.add(new ImageItem(6, R.drawable.horse, "Horse"));
         imageList.add(new ImageItem(7, R.drawable.lion, "Lion"));
         imageList.add(new ImageItem(8, R.drawable.eagle, "eagle"));
-        imageList.add(new ImageItem(9, R.drawable.cow, "Cow"));
+        //imageList.add(new ImageItem(9, R.drawable.cow, "Cow"));
         imageList.add(new ImageItem(10, R.drawable.lynx, "Lynx"));
         imageList.add(new ImageItem(11, R.drawable.penguin,"Penguin"));
         imageList.add(new ImageItem(12, R.drawable.shark, "Shark"));
@@ -84,8 +84,11 @@ public class Gallery extends AppCompatActivity {
             Intent intent = new Intent(Gallery.this, Quiz.class);
             startActivity(intent);
         });
-        button3.setOnClickListener(v -> Toast.makeText(Gallery.this, "Add image clicked", Toast.LENGTH_SHORT).show());
-
+        button3.setOnClickListener(v -> {
+            Log.d("NewPicture", "Open add picture");
+            Intent intent = new Intent(Gallery.this, New_picture.class);
+            startActivity(intent);
+        });
         /*
          button2.setOnClickListener(v -> Toast.makeText(Gallery.this, "Quiz clicked", Toast.LENGTH_SHORT).show());
          */
