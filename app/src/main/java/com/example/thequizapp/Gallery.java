@@ -1,7 +1,9 @@
 package com.example.thequizapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -77,7 +79,15 @@ public class Gallery extends AppCompatActivity {
 
         // Set up button click listeners to test :P
         button1.setOnClickListener(v -> Toast.makeText(Gallery.this, "Sort clicked", Toast.LENGTH_SHORT).show());
-        button2.setOnClickListener(v -> Toast.makeText(Gallery.this, "Quiz clicked", Toast.LENGTH_SHORT).show());
+        button2.setOnClickListener(v -> {
+            Log.d("Quiz", "Finish button clicked");
+            Intent intent = new Intent(Gallery.this, Quiz.class);
+            startActivity(intent);
+        });
         button3.setOnClickListener(v -> Toast.makeText(Gallery.this, "Add image clicked", Toast.LENGTH_SHORT).show());
+
+        /*
+         button2.setOnClickListener(v -> Toast.makeText(Gallery.this, "Quiz clicked", Toast.LENGTH_SHORT).show());
+         */
     }
 }
