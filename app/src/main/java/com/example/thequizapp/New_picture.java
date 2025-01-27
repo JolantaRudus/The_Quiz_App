@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +16,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class New_picture extends AppCompatActivity {
 
-    private Button cancelButton, takePictureButton, addPhotoButton, addButton;
 
+    private Button cancelButton, addButton;
+    //addPhoto, to let the user choose from the media gallery is MANDATORY
+    //takePicture is optional
+    private ImageButton takePictureButton, addPhotoButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +32,20 @@ public class New_picture extends AppCompatActivity {
             return insets;
         });
 
+        //takes user back to start
         cancelButton = findViewById(R.id.pictureCancel);
-
         cancelButton.setOnClickListener(v -> {
             Log.d("New_picture", "Cancel button clicked");
             Intent intent = new Intent(New_picture.this, Gallery.class);
+            startActivity(intent);
+        });
+
+        //gives user option to add a picture from the image gallery
+        addPhotoButton = findViewById(R.id.addPhoto);
+        addPhotoButton.setOnClickListener(v ->{
+            Log.d("New_picture", "addPhoto button clicked");
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
             startActivity(intent);
         });
 
