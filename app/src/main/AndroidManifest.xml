@@ -12,12 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheQuizApp"
         tools:targetApi="31">
-        <activity
-            android:name=".New_picture"
-            android:exported="false" />
-        <activity
-            android:name=".Quiz"
-            android:exported="false" />
+
         <activity
             android:name=".Gallery"
             android:exported="true">
@@ -27,6 +22,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".Quiz"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".New_picture"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
 </manifest>
