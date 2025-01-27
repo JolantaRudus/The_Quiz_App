@@ -15,6 +15,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class New_picture extends AppCompatActivity {
 
+    private Button cancelButton, takePictureButton, addPhotoButton, addButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,22 @@ public class New_picture extends AppCompatActivity {
             return insets;
         });
 
+        cancelButton = findViewById(R.id.pictureCancel);
 
+        cancelButton.setOnClickListener(v -> {
+            Log.d("New_picture", "Cancel button clicked");
+            Intent intent = new Intent(New_picture.this, Gallery.class);
+            startActivity(intent);
+        });
+
+       /* Button takePicture = findViewById(R.id.takePicture);
+        takePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("takePicture", "Picture taken");
+                startActivity();
+            }
+        })*/
 
     }
 }

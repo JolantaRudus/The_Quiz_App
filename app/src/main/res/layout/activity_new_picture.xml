@@ -20,6 +20,18 @@
         app:layout_constraintVertical_bias="0.1" />
 
     <Button
+        android:id="@+id/pictureCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.894"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.013" />
+
+    <Button
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
