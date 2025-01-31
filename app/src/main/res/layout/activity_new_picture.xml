@@ -60,20 +60,21 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="339dp"
-        android:layout_height="306dp"
-        android:orientation="horizontal"
+        android:layout_width="325dp"
+        android:layout_height="72dp"
         android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/addButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputText">
+        >
 
-        <ImageButton
+        <Button
             android:id="@+id/takePicture"
-            android:layout_width="50sp"
-            android:layout_height="150sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableTop="@drawable/take_picture"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,15 +82,26 @@
             app:layout_constraintVertical_bias="0.5"
             app:srcCompat="@drawable/take_picture" />
 
-        <ImageButton
+        <Button
             android:id="@+id/addPhoto"
-            android:layout_width="50sp"
-            android:layout_height="150sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableTop="@drawable/add_photo"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
             app:srcCompat="@drawable/add_photo" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/selectedImage"
+        android:layout_width="287dp"
+        android:layout_height="390dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputText"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
