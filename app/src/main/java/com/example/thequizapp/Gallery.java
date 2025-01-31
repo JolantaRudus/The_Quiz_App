@@ -80,9 +80,10 @@ public class Gallery extends AppCompatActivity {
         imageList.add(new ImageItem(22, R.drawable.fish, "Fish"));
 
         // Create and set the adapter for the RecyclerView
-        GalleryAdapter galleryAdapter = new GalleryAdapter(imageList); // Create adapter
+        GalleryAdapter galleryAdapter = new GalleryAdapter(this,imageList); // Create adapter
         galleryRecyclerView.setAdapter(galleryAdapter); // Set adapter
         galleryRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Set layout manager
+        //galleryRecyclerView.setLayoutManager(new GridLayoutManager(this, 1)); //Can use this for a grid view (gives more flexibility or something)
 
         // Set up button click listeners to test :P
         // Set up sorting button click listener to sort the list
