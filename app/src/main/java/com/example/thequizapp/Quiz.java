@@ -2,6 +2,7 @@ package com.example.thequizapp;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -74,14 +75,21 @@ public class Quiz extends AppCompatActivity {
         startActivity(intent);
     }
     private void setupNewQuestion() {
-        if (GalleryImageCollection.imageList == null || GalleryImageCollection.imageList.size() < 3) {
+        if (GalleryImageCollection.imageList == null) {
             Toast.makeText(this, "Not enough images for the quiz!", Toast.LENGTH_SHORT).show();
             return;
         }
         resetQuizAnswerButtonsUI();
         List<ImageItem> selectedAnimals = getRandomQuizAnimals(GalleryImageCollection.imageList);
         correctAnswer = selectedAnimals.get(0);
-        image.setImageResource(correctAnswer.getImageDrawable());
+
+        String imageUri = correctAnswer.getImageUri();
+        if (imageUri != null && !imageUri.isEmpty()) {
+            image.setImageURI(Uri.parse(imageUri));
+        }
+        else {
+            image.setImageResource(correctAnswer.getImageDrawable());
+        }
 
         Collections.shuffle(selectedAnimals);
         answerButton1.setText(selectedAnimals.get(0).getTitle());
