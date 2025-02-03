@@ -1,7 +1,5 @@
 package com.example.thequizapp;
 
-import static com.example.thequizapp.Gallery.imageList;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,9 +12,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,12 +71,12 @@ public class Quiz extends AppCompatActivity {
         startActivity(intent);
     }
     private void setupNewQuestion() {
-        if (imageList == null || imageList.size() < 3) {
+        if (GalleryImageCollection.imageList == null || GalleryImageCollection.imageList.size() < 3) {
             Toast.makeText(this, "Not enough images for the quiz!", Toast.LENGTH_SHORT).show();
             return;
         }
         resetQuizAnswerButtonsUI();
-        List<ImageItem> selectedAnimals = getRandomQuizAnimals(imageList);
+        List<ImageItem> selectedAnimals = getRandomQuizAnimals(GalleryImageCollection.imageList);
         correctAnswer = selectedAnimals.get(0);
         image.setImageResource(correctAnswer.getImageResId());
 
