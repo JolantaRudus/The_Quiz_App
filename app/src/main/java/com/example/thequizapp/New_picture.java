@@ -33,7 +33,8 @@ public class New_picture extends AppCompatActivity {
     ActivityResultLauncher<Intent> resultLauncher;
     private Uri photoUri;
     private EditText animalName;
-    private Boolean addedAnimalPhoto = false;
+    private boolean addedAnimalPhoto;
+    private Uri selectedImageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +70,6 @@ public class New_picture extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             pickImageLauncher.launch(intent);
-            //addedAnimalPhoto = true;
         });
 
 
@@ -78,28 +78,39 @@ public class New_picture extends AppCompatActivity {
             Log.d("takePicture", "Picture taken");
         });*/
 
-       /* addToGalleryButton = findViewById(R.id.addButton);
+       addToGalleryButton = findViewById(R.id.addButton);
         addToGalleryButton.setOnClickListener(v -> {
-            if(animalName.getText() != null && addedAnimalPhoto) {
-                //add animal name and photo to array/db
-                Log.d("New_picture", "added name and photo to array");
-                //return to gallery Screen
-                Log.d("New_picture", "Return to gallery screen");
-                Intent intent = new Intent(New_picture.this, Gallery.class);
-                startActivity(intent);
+            if (selectedImageUri != null && !animalName.getText().toString().trim().isEmpty()) {
+                addToGallery(selectedImageUri.toString());
+            } else {
+                Log.d("New_picture", "No image or name provided!");
             }
-        });*/
+        });
     }
 
     private final ActivityResultLauncher<Intent> pickImageLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    Uri selectedImageUri = result.getData().getData();
+                    selectedImageUri = result.getData().getData();
                     if (selectedImageUri != null) {
                         selectedImage.setImageURI(selectedImageUri);
                         takePictureButton.setVisibility(View.GONE);
                         addPhotoButton.setVisibility(View.GONE);
+                        addedAnimalPhoto = true;
                     }
                 }
             });
+
+    private void addToGallery(String imageUri) {
+        String animal = animalName.getText().toString().trim();
+        if (!animal.isEmpty() && addedAnimalPhoto) {
+            int newId = GalleryImageCollection.imageList.size() + 1;
+            GalleryImageCollection.imageList.add(new ImageItem(newId, imageUri, animal));
+            Log.d("New_picture", "Added image to gallery: " + imageUri);
+
+            // Return to gallery
+            Intent intent = new Intent(New_picture.this, Gallery.class);
+            startActivity(intent);
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.example.thequizapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     @Override
     public void onBindViewHolder(@NonNull GalleryViewHolder holder, int position) {
         ImageItem currentItem = imageList.get(position);
-        holder.imageView.setImageResource(currentItem.getImageResId());
+        // Load images based on whether it's a drawable or a gallery URI
+        if (currentItem.getImageDrawable() != null) {
+            holder.imageView.setImageResource(currentItem.getImageDrawable());
+        } else if (currentItem.getImageUri() != null) {
+            holder.imageView.setImageURI(Uri.parse(currentItem.getImageUri()));
+        }
         holder.titleTextView.setText(currentItem.getTitle());
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override

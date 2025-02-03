@@ -81,7 +81,7 @@ public class Quiz extends AppCompatActivity {
         resetQuizAnswerButtonsUI();
         List<ImageItem> selectedAnimals = getRandomQuizAnimals(GalleryImageCollection.imageList);
         correctAnswer = selectedAnimals.get(0);
-        image.setImageResource(correctAnswer.getImageResId());
+        image.setImageResource(correctAnswer.getImageDrawable());
 
         Collections.shuffle(selectedAnimals);
         answerButton1.setText(selectedAnimals.get(0).getTitle());
