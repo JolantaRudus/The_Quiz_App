@@ -30,6 +30,7 @@ public class Gallery extends AppCompatActivity {
     private Button button1;
     private Button button2;
     private Button button3;
+    public static List<ImageItem> imageList = new ArrayList<>();
 
 
     @SuppressLint("MissingInflatedId")
@@ -55,7 +56,6 @@ public class Gallery extends AppCompatActivity {
 
 
         // List of image items objects with their corresponding image resource IDs and titles
-        List<ImageItem> imageList = new ArrayList<>();
         imageList.add(new ImageItem(1, R.drawable.antelope, "Antelope"));
         //imageList.add(new ImageItem(2, R.drawable.cat, "Cat"));
         imageList.add(new ImageItem(3, R.drawable.dog,"Dog"));
