@@ -1,5 +1,7 @@
 package com.example.thequizapp;
 
+import static com.example.thequizapp.GalleryImageCollection.imageList;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -55,7 +57,7 @@ public class Gallery extends AppCompatActivity {
 
 
         // Create and set the adapter for the RecyclerView
-        GalleryAdapter galleryAdapter = new GalleryAdapter(this, GalleryImageCollection.imageList); // Create adapter
+        GalleryAdapter galleryAdapter = new GalleryAdapter(this, imageList); // Create adapter
         galleryRecyclerView.setAdapter(galleryAdapter); // Set adapter
         galleryRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Set layout manager
         //galleryRecyclerView.setLayoutManager(new GridLayoutManager(this, 1)); //Can use this for a grid view (gives more flexibility or something)
@@ -67,11 +69,11 @@ public class Gallery extends AppCompatActivity {
         button1.setOnClickListener(v -> {
             if (isSorted[0]) {
                 // Sort in ascending order (A-Z)
-                Collections.sort(GalleryImageCollection.imageList, Comparator.comparing(ImageItem::getTitle));
+                Collections.sort(imageList, Comparator.comparing(ImageItem::getTitle));
                 Toast.makeText(this, "Sorted A-Z", Toast.LENGTH_SHORT).show();
             } else {
                 // Sort in descending order (Z-A)
-                Collections.sort(GalleryImageCollection.imageList, (item1, item2) -> item2.getTitle().compareTo(item1.getTitle()));
+                Collections.sort(imageList, (item1, item2) -> item2.getTitle().compareTo(item1.getTitle()));
                 Toast.makeText(this, "Sorted Z-A", Toast.LENGTH_SHORT).show();
             }
             // Toggle the sorting order
@@ -83,9 +85,12 @@ public class Gallery extends AppCompatActivity {
         });
 
         button2.setOnClickListener(v -> {
-            Log.d("Quiz", "Finish button clicked");
-            Intent intent = new Intent(Gallery.this, Quiz.class);
-            startActivity(intent);
+            if(imageList.size() >= 3) {
+                Log.d("Quiz", "Finish button clicked");
+                Intent intent = new Intent(Gallery.this, Quiz.class);
+                startActivity(intent);
+            }
+            else Toast.makeText(this, "Not enough images for the quiz!", Toast.LENGTH_SHORT).show();
         });
         button3.setOnClickListener(v -> {
             Log.d("NewPicture", "Open add picture");
