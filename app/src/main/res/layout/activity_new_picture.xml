@@ -32,18 +32,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.013" />
 
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9"
-        />
-
     <EditText
         android:id="@+id/inputText"
         android:layout_width="wrap_content"
@@ -57,6 +45,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintVertical_bias="0.15" />
+
+    <ImageView
+        android:id="@+id/selectedImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputText" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -95,13 +94,16 @@
             app:srcCompat="@drawable/add_photo" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/selectedImage"
-        android:layout_width="287dp"
-        android:layout_height="390dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputText"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

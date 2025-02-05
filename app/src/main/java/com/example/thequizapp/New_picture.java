@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,20 +19,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.io.File;
-
 public class New_picture extends AppCompatActivity {
 
-
     private Button cancelButton, takePictureButton, addPhotoButton, addToGalleryButton;
-    //addPhoto, to let the user choose from the media gallery is MANDATORY
-    //takePicture is optional
-    private ImageView selectedImage;
-    ActivityResultLauncher<Intent> resultLauncher;
-    private Uri photoUri;
+    private ImageView selectedImageView;
     private EditText animalName;
-    boolean animalExists = false;
     private Uri selectedImageUri;
+    boolean animalExists = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,25 +38,26 @@ public class New_picture extends AppCompatActivity {
             return insets;
         });
 
-        //buttons
+        //Buttons
         cancelButton = findViewById(R.id.pictureCancel);
         addPhotoButton = findViewById(R.id.addPhoto);
         takePictureButton = findViewById(R.id.takePicture);
+        addToGalleryButton = findViewById(R.id.addButton);
 
 
-        //other elements
+        //Other elements
         animalName = findViewById(R.id.inputText);
-        selectedImage = findViewById(R.id.selectedImage);
+        selectedImageView = findViewById(R.id.selectedImage);
 
 
-        //takes user back to start
+        //Takes user back to start
         cancelButton.setOnClickListener(v -> {
             Log.d("New_picture", "Cancel button clicked");
             Intent intent = new Intent(New_picture.this, Gallery.class);
             startActivity(intent);
         });
 
-        //gives user option to add a picture from the image gallery.
+        //Button functionality that gives user option to add a picture from the image gallery.
         addPhotoButton.setOnClickListener(v -> {
             Log.d("New_picture", "addPhoto button clicked");
             Intent intent = new Intent(Intent.ACTION_PICK);
@@ -73,13 +65,7 @@ public class New_picture extends AppCompatActivity {
             pickImageLauncher.launch(intent);
         });
 
-
-       /* takePictureButton.setOnClickListener(v ->  {
-
-            Log.d("takePicture", "Picture taken");
-        });*/
-
-       addToGalleryButton = findViewById(R.id.addButton);
+        //Button functionality that adds the picture to the gallery.
         addToGalleryButton.setOnClickListener(v -> {
             if (selectedImageUri != null && !animalName.getText().toString().trim().isEmpty()) {
                 addToGallery(selectedImageUri.toString());
@@ -90,22 +76,25 @@ public class New_picture extends AppCompatActivity {
         });
     }
 
+    // Configures the ActivityResultLauncher to launch the image picker and handle the result.
+    // When an image is selected, the callback receives the image URI and displays it in the ImageView.
     private final ActivityResultLauncher<Intent> pickImageLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     selectedImageUri = result.getData().getData();
                     if (selectedImageUri != null) {
-                        selectedImage.setImageURI(selectedImageUri);
+                        selectedImageView.setImageURI(selectedImageUri);
                         takePictureButton.setVisibility(View.GONE);
                         addPhotoButton.setVisibility(View.GONE);
                     }
                 }
             });
 
+    //adds image to gallery
     private void addToGallery(String imageUri) {
         String animal = animalName.getText().toString().trim();
 
-        //Check if animalname exists
+        //Check if animal name exists in gallery
         animalExists = false;
         for (ImageItem i : GalleryImageCollection.imageList) {
             if (i.getTitle().equalsIgnoreCase(animal)) {
@@ -114,14 +103,14 @@ public class New_picture extends AppCompatActivity {
             }
         }
 
-        //Show toast animal name already exists
+        //Show toast if animal name already exists
         if (animalExists) {
             Log.d("New_picture", "animal name already exists!");
             Toast.makeText(New_picture.this, "Animal is already added to the quiz!", Toast.LENGTH_SHORT).show();
             animalName.setText("");
 
         } else {
-
+            //add animal to gallery
             String capitalizedAnimal = animal.substring(0, 1).toUpperCase() + animal.substring(1).toLowerCase();
             int newId = GalleryImageCollection.imageList.size() + 1;
             GalleryImageCollection.imageList.add(new ImageItem(newId, imageUri, capitalizedAnimal));
