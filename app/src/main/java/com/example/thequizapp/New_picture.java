@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -33,7 +34,7 @@ public class New_picture extends AppCompatActivity {
     ActivityResultLauncher<Intent> resultLauncher;
     private Uri photoUri;
     private EditText animalName;
-    private boolean addedAnimalPhoto;
+    boolean animalExists = false;
     private Uri selectedImageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class New_picture extends AppCompatActivity {
                 addToGallery(selectedImageUri.toString());
             } else {
                 Log.d("New_picture", "No image or name provided!");
+                Toast.makeText(New_picture.this, "No image or name provided!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -96,17 +98,34 @@ public class New_picture extends AppCompatActivity {
                         selectedImage.setImageURI(selectedImageUri);
                         takePictureButton.setVisibility(View.GONE);
                         addPhotoButton.setVisibility(View.GONE);
-                        addedAnimalPhoto = true;
                     }
                 }
             });
 
     private void addToGallery(String imageUri) {
         String animal = animalName.getText().toString().trim();
-        if (!animal.isEmpty() && addedAnimalPhoto) {
+
+        //Check if animalname exists
+        animalExists = false;
+        for (ImageItem i : GalleryImageCollection.imageList) {
+            if (i.getTitle().equalsIgnoreCase(animal)) {
+                animalExists = true;
+                break;
+            }
+        }
+
+        //Show toast animal name already exists
+        if (animalExists) {
+            Log.d("New_picture", "animal name already exists!");
+            Toast.makeText(New_picture.this, "Animal is already added to the quiz!", Toast.LENGTH_SHORT).show();
+            animalName.setText("");
+
+        } else {
+
             int newId = GalleryImageCollection.imageList.size() + 1;
             GalleryImageCollection.imageList.add(new ImageItem(newId, imageUri, animal));
             Log.d("New_picture", "Added image to gallery: " + imageUri);
+            Toast.makeText(New_picture.this, "Animal added to quiz gallery!", Toast.LENGTH_SHORT).show();
 
             // Return to gallery
             Intent intent = new Intent(New_picture.this, Gallery.class);
