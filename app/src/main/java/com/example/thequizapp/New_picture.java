@@ -122,8 +122,9 @@ public class New_picture extends AppCompatActivity {
 
         } else {
 
+            String capitalizedAnimal = animal.substring(0, 1).toUpperCase() + animal.substring(1).toLowerCase();
             int newId = GalleryImageCollection.imageList.size() + 1;
-            GalleryImageCollection.imageList.add(new ImageItem(newId, imageUri, animal));
+            GalleryImageCollection.imageList.add(new ImageItem(newId, imageUri, capitalizedAnimal));
             Log.d("New_picture", "Added image to gallery: " + imageUri);
             Toast.makeText(New_picture.this, "Animal added to quiz gallery!", Toast.LENGTH_SHORT).show();
 

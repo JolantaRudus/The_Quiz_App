@@ -69,7 +69,7 @@ public class Gallery extends AppCompatActivity {
         button1.setOnClickListener(v -> {
             if (isSorted[0]) {
                 // Sort in ascending order (A-Z)
-                Collections.sort(imageList, Comparator.comparing(ImageItem::getTitle));
+                imageList.sort(Comparator.comparing(ImageItem::getTitle, String.CASE_INSENSITIVE_ORDER));
                 Toast.makeText(this, "Sorted A-Z", Toast.LENGTH_SHORT).show();
             } else {
                 // Sort in descending order (Z-A)
