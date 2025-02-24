@@ -33,4 +33,5 @@ public class GalleryImageCollection {
         imageList.add(new ImageItem(21, R.drawable.bat, "Bat"));
         imageList.add(new ImageItem(22, R.drawable.fish, "Fish"));
     }
+
 }

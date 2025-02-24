@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class Gallery extends AppCompatActivity {
 
@@ -52,8 +53,6 @@ public class Gallery extends AppCompatActivity {
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
-
-
 
 
         // Create and set the adapter for the RecyclerView
