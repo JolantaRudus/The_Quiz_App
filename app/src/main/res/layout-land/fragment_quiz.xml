@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/quiz_correct_answers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="#42900E"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/quiz_score_slash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" / "
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/quiz_all_answers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/quiz_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Finish"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/quiz_picture"
+            android:layout_width="248dp"
+            android:layout_height="236dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/quiz_button_answer3"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:text="Answer3" />
+
+                <ImageView
+                    android:id="@+id/quiz_check3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_check"
+                    android:visibility="invisible"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="8dp" />
+                <ImageView
+                    android:id="@+id/quiz_cross3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_cross"
+                    android:visibility="invisible"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="8dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/quiz_button_answer1"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:text="Answer1" />
+                <ImageView
+                    android:id="@+id/quiz_check1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_check"
+                    android:visibility="invisible"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="8dp" />
+                <ImageView
+                    android:id="@+id/quiz_cross1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_cross"
+                    android:visibility="invisible"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="8dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/quiz_button_answer2"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:text="Answer2" />
+                <ImageView
+                    android:id="@+id/quiz_check2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_check"
+                    android:visibility="invisible"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="8dp" />
+                <ImageView
+                    android:id="@+id/quiz_cross2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_cross"
+                    android:visibility="invisible"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="8dp" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end">
+        <Button
+            android:id="@+id/quiz_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=">" />
+    </LinearLayout>
+</LinearLayout>
