@@ -18,12 +18,16 @@ import java.util.List;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
 
-    private List<ImageItem> imageList;
+    private List<QuizAppEntity> imageList;
     private Context context;
 
-    public GalleryAdapter(Context context, List<ImageItem> imageList) {
+    private QuizAppViewModel viewModel;
+
+
+    public GalleryAdapter(Gallery context, List<QuizAppEntity> imageList, QuizAppViewModel viewModel) {
         this.context = context; // Initialize the context
         this.imageList = imageList;
+        this.viewModel = viewModel;
     }
 
     public static class GalleryViewHolder extends RecyclerView.ViewHolder {
@@ -48,12 +52,26 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     @Override
     public void onBindViewHolder(@NonNull GalleryViewHolder holder, int position) {
-        ImageItem currentItem = imageList.get(position);
+        QuizAppEntity currentItem = imageList.get(position);
         // Load images based on whether it's a drawable or a gallery URI
-        if (currentItem.getImageDrawable() != null) {
-            holder.imageView.setImageResource(currentItem.getImageDrawable());
-        } else if (currentItem.getImageUri() != null) {
-            holder.imageView.setImageURI(Uri.parse(currentItem.getImageUri()));
+        if (currentItem.getImageUri() != null && !currentItem.getImageUri().isEmpty()) {
+            // Try to parse as a URI
+            try {
+                Uri imageUri = Uri.parse(currentItem.getImageUri());
+                holder.imageView.setImageURI(imageUri);
+            } catch (Exception e) {
+                // If it's not a valid URI, try to load it as a drawable resource
+                try {
+                    int drawableId = Integer.parseInt(currentItem.getImageUri());
+                    holder.imageView.setImageResource(drawableId);
+                } catch (NumberFormatException nfe) {
+                    // Handle the case where it's neither a URI nor a drawable ID
+                    holder.imageView.setImageResource(R.drawable.ic_launcher_foreground);
+                }
+            }
+        } else {
+            // If imageUri is null or empty, set a placeholder image
+            holder.imageView.setImageResource(R.drawable.ic_launcher_foreground);
         }
         holder.titleTextView.setText(currentItem.getTitle());
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +98,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
                 deleteImage(position);
             }
         });
-        builder.setNegativeButton("Cancel", null);
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            // Do nothing, just dismiss the dialog
+        });
         builder.show();
     }
 
