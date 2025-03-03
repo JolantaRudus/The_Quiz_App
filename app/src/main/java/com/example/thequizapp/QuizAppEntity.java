@@ -17,11 +17,21 @@ public class QuizAppEntity {
     @ColumnInfo(name = "imageUri")
     public String imageUri;
 
-    public QuizAppEntity() {} // Default constructor required for Room, vet ikke om denne er nødvendig
-   @Ignore
-    public QuizAppEntity(String title, String imageUri) {
+    @ColumnInfo(name = "imageDrawable")
+    public Integer imageDrawable;
+
+    //public QuizAppEntity() {} // Default constructor required for Room, vet ikke om denne er nødvendig
+
+    public QuizAppEntity(String imageUri, String title) {
         this.title = title;
         this.imageUri = imageUri;
+        this.imageDrawable = null;
+    }
+
+    public QuizAppEntity(int imageResId, String title) {
+        this.title = title;
+        this.imageDrawable = imageResId;
+        this.imageUri = null;
     }
 
     public int getId() {
@@ -45,5 +55,9 @@ public class QuizAppEntity {
 
     public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
+    }
+
+    public Integer getImageDrawable() {
+        return imageDrawable;
     }
 }

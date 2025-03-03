@@ -9,8 +9,8 @@ import java.util.List;
 public class QuizViewModel extends ViewModel {
         private int totalAnswers = 0;
         private int correctAnswers = 0;
-        private MutableLiveData<ImageItem> correctAnswer = new MutableLiveData<>();
-        private MutableLiveData<List<ImageItem>> answerOptions = new MutableLiveData<>();
+        private MutableLiveData<QuizAppEntity> correctAnswer = new MutableLiveData<>();
+        private MutableLiveData<List<QuizAppEntity>> answerOptions = new MutableLiveData<>();
         private MutableLiveData<String> selectedAnswer = new MutableLiveData<>();
         private MutableLiveData<Integer> totalAnswersLiveData = new MutableLiveData<>();
         private MutableLiveData<Integer> correctAnswersLiveData = new MutableLiveData<>();
@@ -26,14 +26,14 @@ public class QuizViewModel extends ViewModel {
             if (GalleryImageCollection.imageList == null || GalleryImageCollection.imageList.size() < 3) {
                 return;
             }
-            List<ImageItem> selectedAnimals = getRandomQuizAnimals(GalleryImageCollection.imageList);
+            List<QuizAppEntity> selectedAnimals = getRandomQuizAnimals(GalleryImageCollection.imageList);
             correctAnswer.setValue(selectedAnimals.get(0));
             Collections.shuffle(selectedAnimals);
             answerOptions.setValue(selectedAnimals);
         }
 
-        private List<ImageItem> getRandomQuizAnimals(List<ImageItem> imageNameList) {
-            List<ImageItem> animals = new ArrayList<>(imageNameList);
+        private List<QuizAppEntity> getRandomQuizAnimals(List<QuizAppEntity> imageNameList) {
+            List<QuizAppEntity> animals = new ArrayList<>(imageNameList);
             Collections.shuffle(animals);
             return animals.subList(0, 3);
         }
@@ -49,11 +49,11 @@ public class QuizViewModel extends ViewModel {
             }
         }
 
-        public MutableLiveData<ImageItem> getCorrectAnswer() {
+        public MutableLiveData<QuizAppEntity> getCorrectAnswer() {
             return correctAnswer;
         }
 
-        public MutableLiveData<List<ImageItem>> getAnswerOptions() {
+        public MutableLiveData<List<QuizAppEntity>> getAnswerOptions() {
             return answerOptions;
         }
 

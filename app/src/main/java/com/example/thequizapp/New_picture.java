@@ -96,7 +96,7 @@ public class New_picture extends AppCompatActivity {
 
         //Check if animal name exists in gallery
         animalExists = false;
-        for (ImageItem i : GalleryImageCollection.imageList) {
+        for (QuizAppEntity i : GalleryImageCollection.imageList) {
             if (i.getTitle().equalsIgnoreCase(animal)) {
                 animalExists = true;
                 break;
@@ -113,7 +113,7 @@ public class New_picture extends AppCompatActivity {
             //add animal to gallery
             String capitalizedAnimal = animal.substring(0, 1).toUpperCase() + animal.substring(1).toLowerCase();
             int newId = GalleryImageCollection.imageList.size() + 1;
-            GalleryImageCollection.imageList.add(new ImageItem(newId, imageUri, capitalizedAnimal));
+            GalleryImageCollection.imageList.add(new QuizAppEntity(imageUri, capitalizedAnimal));
             Log.d("New_picture", "Added image to gallery: " + imageUri);
             Toast.makeText(New_picture.this, "Animal added to quiz gallery!", Toast.LENGTH_SHORT).show();
 

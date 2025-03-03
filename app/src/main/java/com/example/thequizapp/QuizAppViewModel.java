@@ -1,6 +1,7 @@
 package com.example.thequizapp;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -24,5 +25,9 @@ public class QuizAppViewModel extends AndroidViewModel {
 
     public void insert(QuizAppEntity image) {
         repository.insert(image); // Lets the repository handle the insertion
+    }
+
+    public void populateDatabase(Context context) {
+        repository.populateDatabase(context);
     }
 }

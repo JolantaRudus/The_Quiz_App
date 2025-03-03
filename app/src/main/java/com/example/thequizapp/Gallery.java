@@ -48,6 +48,10 @@ public class Gallery extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+
+            QuizAppViewModel viewModel = new ViewModelProvider(this).get(QuizAppViewModel.class);
+            viewModel.populateDatabase(this);
+
             return insets;
         });
 
