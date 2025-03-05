@@ -1,12 +1,17 @@
 package com.example.thequizapp;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.Observer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class QuizViewModel extends ViewModel {
+public class QuizViewModel extends AndroidViewModel {
+        private QuizAppRepository repository;
         private int totalAnswers = 0;
         private int correctAnswers = 0;
         private MutableLiveData<QuizAppEntity> correctAnswer = new MutableLiveData<>();
@@ -15,22 +20,30 @@ public class QuizViewModel extends ViewModel {
         private MutableLiveData<Integer> totalAnswersLiveData = new MutableLiveData<>();
         private MutableLiveData<Integer> correctAnswersLiveData = new MutableLiveData<>();
 
-        public QuizViewModel() {
+        public QuizViewModel(Application application) {
+            super(application);
+            repository = new QuizAppRepository(application);
             totalAnswersLiveData.setValue(totalAnswers);
             correctAnswersLiveData.setValue(correctAnswers);
         }
 
-        public void setupNewQuestion() {
-            correctAnswer.setValue(null);
-            selectedAnswer.setValue(null);
-            if (GalleryImageCollection.imageList == null || GalleryImageCollection.imageList.size() < 3) {
-                return;
+    public void setupNewQuestion() {
+        correctAnswer.setValue(null);
+        selectedAnswer.setValue(null);
+
+        // Observe all images from the database repository
+        repository.getAllImages().observeForever(new Observer<List<QuizAppEntity>>() {
+            @Override
+            public void onChanged(List<QuizAppEntity> allImages) {
+                if (allImages != null && allImages.size() >= 3) {
+                    List<QuizAppEntity> selectedImages = getRandomQuizAnimals(allImages);
+                    correctAnswer.setValue(selectedImages.get(0));
+                    Collections.shuffle(selectedImages);
+                    answerOptions.setValue(selectedImages);
+                }
             }
-            List<QuizAppEntity> selectedAnimals = getRandomQuizAnimals(GalleryImageCollection.imageList);
-            correctAnswer.setValue(selectedAnimals.get(0));
-            Collections.shuffle(selectedAnimals);
-            answerOptions.setValue(selectedAnimals);
-        }
+        });
+    }
 
         private List<QuizAppEntity> getRandomQuizAnimals(List<QuizAppEntity> imageNameList) {
             List<QuizAppEntity> animals = new ArrayList<>(imageNameList);
