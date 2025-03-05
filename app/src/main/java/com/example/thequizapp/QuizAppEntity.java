@@ -20,8 +20,6 @@ public class QuizAppEntity {
     @ColumnInfo(name = "imageDrawable")
     public Integer imageDrawable;
 
-    //public QuizAppEntity() {} // Default constructor required for Room, vet ikke om denne er nødvendig
-
     public QuizAppEntity(String imageUri, String title) {
         this.title = title;
         this.imageUri = imageUri;

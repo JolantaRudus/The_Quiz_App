@@ -35,7 +35,7 @@ public class QuizAppRepository {
     // Method to insert an imageItem to the database
     public void insert(QuizAppEntity imageItem) {
         Log.d("Database", "Inserting imageItem: " + imageItem.getTitle()); // Just to see what is being inserted
-        QuizAppEntity newImage = new QuizAppEntity(imageItem.getTitle(), imageItem.getImageUri());
+        QuizAppEntity newImage = new QuizAppEntity(imageItem.getImageUri(), imageItem.getTitle());
         excutorService.execute(() -> quizAppDAO.insert(newImage));
     }
 
@@ -60,7 +60,7 @@ public class QuizAppRepository {
             if (quizAppDAO.getAll().getValue() == null || quizAppDAO.getAll().getValue().isEmpty()) {
                 for (QuizAppEntity item : GalleryImageCollection.imageList) {
                     String imageUri = "android.resource://" + context.getPackageName() + "/" + item.getImageDrawable();
-                    QuizAppEntity imageEntity = new QuizAppEntity(item.getTitle(), imageUri);
+                    QuizAppEntity imageEntity = new QuizAppEntity(imageUri, item.getTitle());
                     quizAppDAO.insert(imageEntity);
                 }
             }
