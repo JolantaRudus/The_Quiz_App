@@ -106,6 +106,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     //Method to delete the image from the list
     private void deleteImage(int position) {
+        QuizAppEntity imageToDelete = imageList.get(position);
+
+        // Remove from database
+        viewModel.deleteImage(imageToDelete);
+
+        // Remove from list and update UI
         imageList.remove(position);
         notifyItemRemoved(position);
     }

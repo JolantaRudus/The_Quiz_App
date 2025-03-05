@@ -16,18 +16,25 @@ public class QuizAppViewModel extends AndroidViewModel {
     public QuizAppViewModel(Application application) {
         super(application);
         repository = new QuizAppRepository(application);
-        allImages = repository.getAllImages(); // Get all images from the repository
+        allImages = repository.getAllImages();
     }
 
     public LiveData<List<QuizAppEntity>> getAllImages() {
-        return allImages; // Make the images available to the UI
+        return repository.getAllImages(); // Make the images available to the UI
     }
 
     public void insert(QuizAppEntity image) {
-        repository.insert(image); // Lets the repository handle the insertion
+        repository.insert(image);
     }
 
     public void populateDatabase(Context context) {
         repository.populateDatabase(context);
+    }
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    public void deleteImage(QuizAppEntity image) {
+        repository.delete(image);
     }
 }

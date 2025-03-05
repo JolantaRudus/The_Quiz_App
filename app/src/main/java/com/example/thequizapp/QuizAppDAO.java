@@ -7,8 +7,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.thequizapp.QuizAppEntity;
-
 import java.util.List;
 
 @Dao
@@ -23,8 +21,17 @@ public interface QuizAppDAO {
     void delete(QuizAppEntity quizAppEntity);
 
     @Query("SELECT * FROM gallery")
-    LiveData<List<QuizAppEntity>> getAll();
+    LiveData<List<QuizAppEntity>> getAllImages();
 
     @Query("SELECT * FROM gallery WHERE id = :id")
     LiveData<QuizAppEntity> getById(int id);
+
+    @Query("SELECT COUNT(*) FROM gallery")
+    int getRowCount();
+    //check if animal already exists
+    @Query("SELECT COUNT(*) FROM gallery WHERE title = :animalName")
+    int getAnimalCount(String animalName);
+
+    @Query("DELETE FROM gallery")//use if need to empty the database
+    void deleteAll();
 }

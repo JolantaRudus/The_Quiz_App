@@ -94,32 +94,34 @@ public class New_picture extends AppCompatActivity {
     private void addToGallery(String imageUri) {
         String animal = animalName.getText().toString().trim();
 
-        //Check if animal name exists in gallery
-        animalExists = false;
-        for (QuizAppEntity i : GalleryImageCollection.imageList) {
-            if (i.getTitle().equalsIgnoreCase(animal)) {
-                animalExists = true;
-                break;
-            }
-        }
+        // Check if the animal already exists in the database using background threads to prevent UI freezes
+        new Thread(() -> {
+            int count = QuizAppDatabase.getInstance(getApplicationContext()).quizAppDAO().getAnimalCount(animal);
 
-        //Show toast if animal name already exists
-        if (animalExists) {
-            Log.d("New_picture", "animal name already exists!");
-            Toast.makeText(New_picture.this, "Animal is already added to the quiz!", Toast.LENGTH_SHORT).show();
-            animalName.setText("");
+            runOnUiThread(() -> {
+                if (count > 0) {
+                    Log.d("New_picture", "Animal name already exists!");
+                    Toast.makeText(New_picture.this, "Animal is already added to the quiz!", Toast.LENGTH_SHORT).show();
+                    animalName.setText("");
+                } else {
+                    // Insert into the database
+                    String capitalizedAnimal = animal.substring(0, 1).toUpperCase() + animal.substring(1).toLowerCase();
+                    QuizAppEntity newEntity = new QuizAppEntity(imageUri, capitalizedAnimal);
 
-        } else {
-            //add animal to gallery
-            String capitalizedAnimal = animal.substring(0, 1).toUpperCase() + animal.substring(1).toLowerCase();
-            int newId = GalleryImageCollection.imageList.size() + 1;
-            GalleryImageCollection.imageList.add(new QuizAppEntity(imageUri, capitalizedAnimal));
-            Log.d("New_picture", "Added image to gallery: " + imageUri);
-            Toast.makeText(New_picture.this, "Animal added to quiz gallery!", Toast.LENGTH_SHORT).show();
+                    new Thread(() -> {
+                        QuizAppDatabase.getInstance(getApplicationContext()).quizAppDAO().insert(newEntity);
 
-            // Return to gallery
-            Intent intent = new Intent(New_picture.this, Gallery.class);
-            startActivity(intent);
-        }
+                        runOnUiThread(() -> {
+                            Log.d("New_picture", "Added image to gallery: " + imageUri);
+                            Toast.makeText(New_picture.this, "Animal added to quiz gallery!", Toast.LENGTH_SHORT).show();
+
+                            // Return to gallery
+                            Intent intent = new Intent(New_picture.this, Gallery.class);
+                            startActivity(intent);
+                        });
+                    }).start();
+                }
+            });
+        }).start();
     }
 }
