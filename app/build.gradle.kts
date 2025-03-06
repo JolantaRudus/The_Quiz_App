@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.constraintlayout)
     //implementation(project(":app"))
     implementation(libs.core.ktx)
+    implementation(libs.espresso.intents)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
