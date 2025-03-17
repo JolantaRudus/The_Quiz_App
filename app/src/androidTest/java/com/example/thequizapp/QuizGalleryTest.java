@@ -4,18 +4,23 @@ import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertEquals;
 
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
+import android.view.View;
+import org.hamcrest.Matcher;
 
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.UiController;
+import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.matcher.IntentMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -88,15 +93,44 @@ public class QuizGalleryTest {
     }
 
     @Test
-    public void testDeletePicture() {
+    public void testDeletePicture() throws InterruptedException {
         int initialCount = getRecyclerViewItemCount(R.id.galleryRecyclerView);
 
-        // Delete the fourth image
-        onView(withId(R.id.galleryRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
-        ;
+        // Click the delete button inside the third item (index 2)
+        onView(withId(R.id.galleryRecyclerView))
+                .perform(actionOnItemAtPosition(2, clickChildViewWithId(R.id.deleteButton)));
+
+        // Confirm the deletion in the alert dialog
+        onView(withText("Delete")).perform(click());
+
+        // Wait for the database update (replace with IdlingResource if possible)
+        Thread.sleep(1000);
 
         // Check that the count has decreased
         int finalCount = getRecyclerViewItemCount(R.id.galleryRecyclerView);
         assertEquals("Image count should decrease by 1", initialCount - 1, finalCount);
     }
-}
+
+
+        public static ViewAction clickChildViewWithId(final int id) {
+            return new ViewAction() {
+                @Override
+                public Matcher<View> getConstraints() {
+                    return allOf(); // No constraints, apply to any view
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Click on a child view with specified ID.";
+                }
+
+                @Override
+                public void perform(UiController uiController, View view) {
+                    View childView = view.findViewById(id);
+                    if (childView != null) {
+                        childView.performClick();
+                    }
+                }
+            };
+        }
+    }
