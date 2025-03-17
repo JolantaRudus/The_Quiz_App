@@ -150,6 +150,6 @@ public class QuizFragment extends Fragment {
             Toast.makeText(getContext(), "Finished with score " +
                     quizViewModel.getCorrectAnswersLiveData().getValue() + "/" +
                     quizViewModel.getTotalAnswersLiveData().getValue() + "!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getActivity(), Gallery.class));
+            requireActivity().finish();
         }
     }

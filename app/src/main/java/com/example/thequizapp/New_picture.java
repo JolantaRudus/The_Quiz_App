@@ -116,8 +116,7 @@ public class New_picture extends AppCompatActivity {
                             Toast.makeText(New_picture.this, "Animal added to quiz gallery!", Toast.LENGTH_SHORT).show();
 
                             // Return to gallery
-                            Intent intent = new Intent(New_picture.this, Gallery.class);
-                            startActivity(intent);
+                            finish();
                         });
                     }).start();
                 }
