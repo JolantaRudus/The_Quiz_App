@@ -21,7 +21,7 @@ public class GalleryImageCollection {
         imageList.add(new QuizAppEntity(R.drawable.cow, "Cow"));
         imageList.add(new QuizAppEntity(R.drawable.lynx, "Lynx"));
         imageList.add(new QuizAppEntity(R.drawable.penguin, "Penguin"));
-        imageList.add(new QuizAppEntity(R.drawable.shark, "Shark"));
+       // imageList.add(new QuizAppEntity(R.drawable.shark, "Shark"));
         imageList.add(new QuizAppEntity(R.drawable.moose, "Moose"));
         imageList.add(new QuizAppEntity(R.drawable.tiger, "Tiger"));
         imageList.add(new QuizAppEntity(R.drawable.wolf, "Wolf"));
