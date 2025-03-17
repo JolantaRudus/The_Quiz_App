@@ -48,3 +48,37 @@ This test is created to verify that the score in the quiz is updated correctly w
 ## Expected Results:
 - **Test 1 (Correct Answer)**: After selecting the correct answer, the "correct answers" and "total answers" should both increase by one.
 - **Test 2 (Wrong Answer)**: After selecting the wrong answer, only the "total answers" should increase by one, and the "correct answers" should remain unchanged.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Documentation for Quiz Gallery Test
+
+## Purpose:
+This test is created to verify the functionality of adding and deleting pictures in the `Gallery` activity. The test will check the following actions:
+1. Add a new picture and ensure that the total count of images in the gallery increases by one.
+2. Delete an image from the gallery and ensure that the total count of images in the gallery decreases by one.
+
+## Expected Behavior:
+- **Adding a picture**: When a user adds a new picture, the total number of images in the gallery should increase by one.
+- **Deleting a picture**: When a user deletes an image, the total number of images in the gallery should decrease by one.
+
+## Steps in the Test:
+
+### Test 1: Add a New Picture
+1. Launch the `Gallery` activity.
+2. Check the initial number of images in the gallery.
+3. Simulate the process of adding a new picture by:
+    - Selecting a picture from the resources folder.
+    - Entering a title for the image.
+    - Saving the image to the gallery.
+4. Verify that the total count of images in the gallery has increased by one.
+
+### Test 2: Delete a Picture
+1. Launch the `Gallery` activity.
+2. Check the initial number of images in the gallery.
+3. Select the third image in the gallery and click the delete button.
+4. Verify that the total count of images in the gallery has decreased by one.
+
+## Expected Results:
+- **Test 1 (Add Picture)**: After adding a new picture, the total number of images in the gallery should increase by one.
+- **Test 2 (Delete Picture)**: After deleting an image, the total number of images in the gallery should decrease by one.
