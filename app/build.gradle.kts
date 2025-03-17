@@ -43,6 +43,7 @@ dependencies {
     //implementation(project(":app"))
     implementation(libs.core.ktx)
     implementation(libs.espresso.intents)
+    implementation(libs.espresso.contrib)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
