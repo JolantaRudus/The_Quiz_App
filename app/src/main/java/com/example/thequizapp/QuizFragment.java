@@ -1,6 +1,5 @@
 package com.example.thequizapp;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,9 +13,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-
-//Fragment for displaying Quiz UI and handling user interactions.
-//It observes the QuizViewModel for updates to quiz data.
+//Fragment for displaying Quiz UI and handling user interactions
 public class QuizFragment extends Fragment {
         private QuizViewModel quizViewModel;
         private Button answerButton1, answerButton2, answerButton3;
@@ -37,24 +34,23 @@ public class QuizFragment extends Fragment {
             return view;
         }
 
-        //Initializes UI components and sets click listeners.
         private void setupUI(View view) {
-            answerButton1 = view.findViewById(R.id.quiz_button_answer1);
-            answerButton2 = view.findViewById(R.id.quiz_button_answer2);
-            answerButton3 = view.findViewById(R.id.quiz_button_answer3);
-            image = view.findViewById(R.id.quiz_picture);
+            answerButton1 = view.findViewById(R.id.quizButtonAnswer1);
+            answerButton2 = view.findViewById(R.id.quizButtonAnswer2);
+            answerButton3 = view.findViewById(R.id.quizButtonAnswer3);
+            image = view.findViewById(R.id.quizPicture);
             checkIcons = new ImageView[]{
-                    view.findViewById(R.id.quiz_check1),
-                    view.findViewById(R.id.quiz_check2),
-                    view.findViewById(R.id.quiz_check3)
+                    view.findViewById(R.id.quizCheck1),
+                    view.findViewById(R.id.quizCheck2),
+                    view.findViewById(R.id.quizCheck3)
             };
             crossIcons = new ImageView[]{
-                    view.findViewById(R.id.quiz_cross1),
-                    view.findViewById(R.id.quiz_cross2),
-                    view.findViewById(R.id.quiz_cross3)
+                    view.findViewById(R.id.quizCross1),
+                    view.findViewById(R.id.quizCross2),
+                    view.findViewById(R.id.quizCross3)
             };
-            allAnswersTextView = view.findViewById(R.id.quiz_all_answers);
-            correctAnswersTextView = view.findViewById(R.id.quiz_correct_answers);
+            allAnswersTextView = view.findViewById(R.id.quizAllAnswers);
+            correctAnswersTextView = view.findViewById(R.id.quizCorrectAnswers);
 
             // Set up answer button click listeners
             answerButton1.setOnClickListener(this::answerClick);
@@ -62,8 +58,8 @@ public class QuizFragment extends Fragment {
             answerButton3.setOnClickListener(this::answerClick);
 
             // Set up navigation buttons
-            view.findViewById(R.id.quiz_finish).setOnClickListener(v -> finishQuiz());
-            view.findViewById(R.id.quiz_next).setOnClickListener(v -> quizViewModel.setupNewQuestion());
+            view.findViewById(R.id.quizFinish).setOnClickListener(v -> finishQuiz());
+            view.findViewById(R.id.quizNext).setOnClickListener(v -> quizViewModel.setupNewQuestion());
         }
 
         //Observes LiveData from ViewModel and updates UI

@@ -18,7 +18,7 @@ public class QuizAppRepository {
 
     public QuizAppRepository(Application application) {
 
-        //Get access til the database through the database class
+        //Get access to the database through the database class
         QuizAppDatabase database = QuizAppDatabase.getInstance(application);
         quizAppDAO = database.quizAppDAO();
         allImages = quizAppDAO.getAllImages(); // Get all data from the database
@@ -48,7 +48,7 @@ public class QuizAppRepository {
         return quizAppDAO.getById(id);
     }
 
-    public int getImageCountFromDatabase() {
+    private int getImageCountFromDatabase() {
         return quizAppDAO.getRowCount();
     }
 

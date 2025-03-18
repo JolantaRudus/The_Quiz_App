@@ -11,7 +11,7 @@ public class Quiz extends AppCompatActivity {
         // Load the QuizFragment when the activity starts
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new QuizFragment())
+                    .replace(R.id.fragmentContainer, new QuizFragment())
                     .commit();
         }
     }

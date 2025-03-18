@@ -8,7 +8,7 @@
     tools:context=".Quiz">
 
     <Button
-        android:id="@+id/quiz_button_answer1"
+        android:id="@+id/quizButtonAnswer1"
         android:layout_width="248dp"
         android:layout_height="48dp"
         android:onClick="answerClick"
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.711" />
 
     <Button
-        android:id="@+id/quiz_button_answer2"
+        android:id="@+id/quizButtonAnswer2"
         android:layout_width="248dp"
         android:layout_height="48dp"
         android:onClick="answerClick"
@@ -32,7 +32,7 @@
         app:layout_constraintVertical_bias="0.793" />
 
     <Button
-        android:id="@+id/quiz_button_answer3"
+        android:id="@+id/quizButtonAnswer3"
         android:layout_width="248dp"
         android:layout_height="48dp"
         android:onClick="answerClick"
@@ -44,7 +44,7 @@
         app:layout_constraintVertical_bias="0.629" />
 
     <ImageView
-        android:id="@+id/quiz_picture"
+        android:id="@+id/quizPicture"
         android:layout_width="248dp"
         android:layout_height="236dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/quiz_next"
+        android:id="@+id/quizNext"
         android:layout_width="61dp"
         android:layout_height="52dp"
         android:text=">"
@@ -71,7 +71,7 @@
         app:layout_constraintVertical_bias="0.914" />
 
     <Button
-        android:id="@+id/quiz_finish"
+        android:id="@+id/quizFinish"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:text="Finish"
@@ -85,7 +85,7 @@
         app:layout_constraintVertical_bias="0.038" />
 
     <TextView
-        android:id="@+id/quiz_all_answers"
+        android:id="@+id/quizAllAnswers"
         android:layout_width="47dp"
         android:layout_height="47dp"
         android:text="0"
@@ -100,7 +100,7 @@
         app:layout_constraintVertical_bias="0.052" />
 
     <TextView
-        android:id="@+id/quiz_score_slash"
+        android:id="@+id/quizScoreSlash"
         android:layout_width="20dp"
         android:layout_height="47dp"
         android:text="/"
@@ -115,7 +115,7 @@
         app:layout_constraintVertical_bias="0.052" />
 
     <TextView
-        android:id="@+id/quiz_correct_answers"
+        android:id="@+id/quizCorrectAnswers"
         android:layout_width="47dp"
         android:layout_height="47dp"
         android:text="0"
@@ -130,7 +130,7 @@
         app:layout_constraintVertical_bias="0.052" />
 
     <ImageView
-        android:id="@+id/quiz_check3"
+        android:id="@+id/quizCheck3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
@@ -143,7 +143,7 @@
         app:srcCompat="@drawable/ic_check" />
 
     <ImageView
-        android:id="@+id/quiz_check1"
+        android:id="@+id/quizCheck1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
@@ -156,7 +156,7 @@
         app:srcCompat="@drawable/ic_check" />
 
     <ImageView
-        android:id="@+id/quiz_check2"
+        android:id="@+id/quizCheck2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
@@ -169,7 +169,7 @@
         app:srcCompat="@drawable/ic_check" />
 
     <ImageView
-        android:id="@+id/quiz_cross3"
+        android:id="@+id/quizCross3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
@@ -182,7 +182,7 @@
         app:srcCompat="@drawable/ic_cross" />
 
     <ImageView
-        android:id="@+id/quiz_cross1"
+        android:id="@+id/quizCross1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
@@ -195,7 +195,7 @@
         app:srcCompat="@drawable/ic_cross" />
 
     <ImageView
-        android:id="@+id/quiz_cross2"
+        android:id="@+id/quizCross2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"

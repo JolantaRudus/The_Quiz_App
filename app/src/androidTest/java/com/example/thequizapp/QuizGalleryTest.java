@@ -65,13 +65,13 @@ public class QuizGalleryTest {
         Intents.intending(IntentMatchers.hasAction(Intent.ACTION_PICK)).respondWith(result);
 
         // Click "New Picture"
-        onView(withId(R.id.button3)).perform(click());
+        onView(withId(R.id.addImageButton)).perform(click());
 
         // Add title for animal
         onView(withId(R.id.inputText)).perform(typeText("Test Animal"));
         closeSoftKeyboard();
 
-        // Click "Lagre"
+        // Click on the button to add picture from the gallery
         onView(withId(R.id.addPhoto)).perform(click());
 
         // Click "Add" to add to gallery

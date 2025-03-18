@@ -16,10 +16,10 @@
       <SelectionState runConfigName="QuizButtonTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="QuizScoreTest">
+      <SelectionState runConfigName="QuizGalleryTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="QuizGalleryTest">
+      <SelectionState runConfigName="QuizScoreTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

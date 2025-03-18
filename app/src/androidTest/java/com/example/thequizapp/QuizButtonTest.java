@@ -23,7 +23,6 @@ import org.junit.runner.RunWith;
 @SmallTest
 public class QuizButtonTest {
 
-    //launch the Gallery main activity
     @Rule
     public ActivityScenarioRule<Gallery> activityRule = new ActivityScenarioRule<> (Gallery.class);
 
@@ -37,7 +36,7 @@ public class QuizButtonTest {
     public void testQuizButton() {
 
         //Click button
-        onView(withId(R.id.button2)).perform(click());
+        onView(withId(R.id.quizButton)).perform(click());
 
         //checks if activity starts
         intended(hasComponent(Quiz.class.getName()));

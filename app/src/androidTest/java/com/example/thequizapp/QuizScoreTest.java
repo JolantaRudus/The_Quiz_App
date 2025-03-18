@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,10 +47,10 @@ public class QuizScoreTest {
             onView(withText(correctAnswer[0])).perform(click());
 
             // Check that "correct answers" has increased by 1
-            onView(withId(R.id.quiz_correct_answers)).check(matches(withText(String.valueOf(initialCorrectAnswers[0] + 1))));
+            onView(withId(R.id.quizCorrectAnswers)).check(matches(withText(String.valueOf(initialCorrectAnswers[0] + 1))));
 
             // Check that "total answers" has increased by 1
-            onView(withId(R.id.quiz_all_answers)).check(matches(withText(String.valueOf(initialTotalAnswers[0] + 1))));
+            onView(withId(R.id.quizAllAnswers)).check(matches(withText(String.valueOf(initialTotalAnswers[0] + 1))));
         }
     }
 
@@ -86,10 +85,10 @@ public class QuizScoreTest {
             onView(withText(wrongAnswer[0])).perform(click());
 
             // Check that "correct answers" has not increased, this should be unchanged
-            onView(withId(R.id.quiz_correct_answers)).check(matches(withText(String.valueOf(initialCorrectAnswers[0]))));
+            onView(withId(R.id.quizCorrectAnswers)).check(matches(withText(String.valueOf(initialCorrectAnswers[0]))));
 
             // Check that "total answers" has increased by 1
-            onView(withId(R.id.quiz_all_answers)).check(matches(withText(String.valueOf(initialTotalAnswers[0] + 1))));
+            onView(withId(R.id.quizAllAnswers)).check(matches(withText(String.valueOf(initialTotalAnswers[0] + 1))));
         }
     }
 }

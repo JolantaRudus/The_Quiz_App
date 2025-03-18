@@ -25,36 +25,37 @@ public class New_picture extends AppCompatActivity {
     private ImageView selectedImageView;
     private EditText animalName;
     private Uri selectedImageUri;
-    boolean animalExists = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_new_picture);
+
+        setupUI();
+        setupListeners();
+    }
+
+    private void setupUI() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        //Buttons
         cancelButton = findViewById(R.id.pictureCancel);
         addPhotoButton = findViewById(R.id.addPhoto);
         takePictureButton = findViewById(R.id.takePicture);
         addToGalleryButton = findViewById(R.id.addButton);
-
-
-        //Other elements
         animalName = findViewById(R.id.inputText);
         selectedImageView = findViewById(R.id.selectedImage);
+    }
 
-
+    private void setupListeners() {
         //Takes user back to start
         cancelButton.setOnClickListener(v -> {
             Log.d("New_picture", "Cancel button clicked");
-            Intent intent = new Intent(New_picture.this, Gallery.class);
-            startActivity(intent);
+            finish();
         });
 
         //Button functionality that gives user option to add a picture from the image gallery.
@@ -90,13 +91,15 @@ public class New_picture extends AppCompatActivity {
                 }
             });
 
-    //adds image to gallery
+    //Adding image to gallery
     private void addToGallery(String imageUri) {
         String animal = animalName.getText().toString().trim();
 
         // Check if the animal already exists in the database using background threads to prevent UI freezes
         new Thread(() -> {
-            int count = QuizAppDatabase.getInstance(getApplicationContext()).quizAppDAO().getAnimalCount(animal);
+            int count = QuizAppDatabase.getInstance(getApplicationContext())
+                    .quizAppDAO()
+                    .getAnimalCount(animal);
 
             runOnUiThread(() -> {
                 if (count > 0) {
@@ -104,22 +107,24 @@ public class New_picture extends AppCompatActivity {
                     Toast.makeText(New_picture.this, "Animal is already added to the quiz!", Toast.LENGTH_SHORT).show();
                     animalName.setText("");
                 } else {
-                    // Insert into the database
                     String capitalizedAnimal = animal.substring(0, 1).toUpperCase() + animal.substring(1).toLowerCase();
-                    QuizAppEntity newEntity = new QuizAppEntity(imageUri, capitalizedAnimal);
-
-                    new Thread(() -> {
-                        QuizAppDatabase.getInstance(getApplicationContext()).quizAppDAO().insert(newEntity);
-
-                        runOnUiThread(() -> {
-                            Log.d("New_picture", "Added image to gallery: " + imageUri);
-                            Toast.makeText(New_picture.this, "Animal added to quiz gallery!", Toast.LENGTH_SHORT).show();
-
-                            // Return to gallery
-                            finish();
-                        });
-                    }).start();
+                    saveAnimalToDatabase(imageUri, capitalizedAnimal);
                 }
+            });
+        }).start();
+    }
+
+    private void saveAnimalToDatabase(String imageUri, String animalName) {
+        QuizAppEntity newEntity = new QuizAppEntity(imageUri, animalName);
+        new Thread(() -> {
+            QuizAppDatabase.getInstance(getApplicationContext())
+                    .quizAppDAO()
+                    .insert(newEntity);
+
+            runOnUiThread(() -> {
+                Log.d("New_picture", "Added image to gallery: " + imageUri);
+                Toast.makeText(New_picture.this, "Animal added to quiz gallery!", Toast.LENGTH_SHORT).show();
+                finish(); //return to gallery
             });
         }).start();
     }

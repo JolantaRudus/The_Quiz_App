@@ -13,7 +13,7 @@ public abstract class QuizAppDatabase extends RoomDatabase {
 
     private static volatile QuizAppDatabase INSTANCE;
 
-    public abstract QuizAppDAO quizAppDAO(); // Implementasjon av DAO-interfacet
+    public abstract QuizAppDAO quizAppDAO(); // Implementation of DAO-interface
     public static synchronized QuizAppDatabase getInstance(Context context) { // Singleton pattern to avoid creating multiple instances of the database
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(),

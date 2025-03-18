@@ -2,7 +2,6 @@ package com.example.thequizapp;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "gallery")
@@ -43,16 +42,8 @@ public class QuizAppEntity {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getImageUri() {
         return imageUri;
-    }
-
-    public void setImageUri(String imageUri) {
-        this.imageUri = imageUri;
     }
 
     public Integer getImageDrawable() {

@@ -33,47 +33,27 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/sortButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Sort" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/quizButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Quiz" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/addImageButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Add image" />
 
     </LinearLayout>
-
-
-    <!--  <LinearLayout
-      android:id="@+id/buttonsLayout"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      />
-
-      <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/floatingActionButton"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="2"
-      android:clickable="true"
-      app:srcCompat="@drawable/baseline_add_photo_alternate_24" />
-      -->
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

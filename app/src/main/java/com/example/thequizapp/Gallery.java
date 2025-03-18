@@ -1,13 +1,10 @@
 package com.example.thequizapp;
 
-import static com.example.thequizapp.GalleryImageCollection.imageList;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -18,7 +15,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,15 +24,10 @@ import java.util.List;
 public class Gallery extends AppCompatActivity {
 
     private RecyclerView galleryRecyclerView;
-    private LinearLayout buttonsLayout;
     private GalleryAdapter galleryAdapter;
     private QuizAppViewModel viewModel;
     private List<QuizAppEntity> imageList = new ArrayList<>();
-
-    // Buttons
-    private Button button1;
-    private Button button2;
-    private Button button3;
+    private Button sortButton, quizButton, addPictureButton;
 
 
     @SuppressLint("MissingInflatedId")
@@ -45,46 +36,52 @@ public class Gallery extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_gallery);
+
+        initializeUI();
+        setupViewModel();
+        setupRecyclerView();
+        setupObservers();
+        setupListeners();
+    }
+
+    private void initializeUI() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-
-            QuizAppViewModel viewModel = new ViewModelProvider(this).get(QuizAppViewModel.class);
-            viewModel.populateDatabase(this);
-
             return insets;
         });
 
-
-        // Initialize ViewModel
-        viewModel = new ViewModelProvider(this).get(QuizAppViewModel.class);
-
-        //Find the RecyclerView by its ID and the buttons layout by its ID
         galleryRecyclerView = findViewById(R.id.galleryRecyclerView);
-        buttonsLayout = findViewById(R.id.bottomBar);
+        sortButton = findViewById(R.id.sortButton);
+        quizButton = findViewById(R.id.quizButton);
+        addPictureButton = findViewById(R.id.addImageButton);
+    }
 
-        //Find the buttons by their ID
-        button1 = findViewById(R.id.button1);
-        button2 = findViewById(R.id.button2);
-        button3 = findViewById(R.id.button3);
+    private void setupViewModel() {
+        viewModel = new ViewModelProvider(this).get(QuizAppViewModel.class);
+        viewModel.populateDatabase(this);
+    }
 
-        // Create and set the adapter for the RecyclerView
-        galleryAdapter = new GalleryAdapter(this, imageList, viewModel); // Create adapter
-        galleryRecyclerView.setAdapter(galleryAdapter); // Set adapter
-        galleryRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Set layout manager
+    private void setupRecyclerView() {
+        galleryAdapter = new GalleryAdapter(this, imageList, viewModel);
+        galleryRecyclerView.setAdapter(galleryAdapter);
+        galleryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
 
-        // Observe the LiveData from the ViewModel
+    private void setupObservers() {
         viewModel.getAllImages().observe(this, images -> {
             imageList.clear();
             imageList.addAll(images);
             galleryAdapter.notifyDataSetChanged();
         });
+    }
 
-        // Set up button click listeners to test :P
-        // Set up sorting button click listener to sort the list
+    // Set up button click listeners to test :P
+    // Set up sorting button click listener to sort the list
+    private void setupListeners() {
         final boolean[] isSorted = {true};
 
-        button1.setOnClickListener(v -> {
+        sortButton.setOnClickListener(v -> {
             if (isSorted[0]) {
                 // Sort in ascending order (A-Z)
                 imageList.sort(Comparator.comparing(QuizAppEntity::getTitle, String.CASE_INSENSITIVE_ORDER));
@@ -102,7 +99,7 @@ public class Gallery extends AppCompatActivity {
             galleryRecyclerView.scrollToPosition(0);
         });
 
-        button2.setOnClickListener(v -> {
+        quizButton.setOnClickListener(v -> {
             if (imageList.size() >= 3) {
                 Log.d("Quiz", "Finish button clicked");
                 Intent intent = new Intent(Gallery.this, Quiz.class);
@@ -110,7 +107,7 @@ public class Gallery extends AppCompatActivity {
             } else
                 Toast.makeText(this, "Not enough images for the quiz!", Toast.LENGTH_SHORT).show();
         });
-        button3.setOnClickListener(v -> {
+        addPictureButton.setOnClickListener(v -> {
             Log.d("NewPicture", "Open add picture");
             Intent intent = new Intent(Gallery.this, New_picture.class);
             startActivity(intent);

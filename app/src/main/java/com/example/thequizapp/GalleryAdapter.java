@@ -20,12 +20,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     private List<QuizAppEntity> imageList;
     private Context context;
-
     private QuizAppViewModel viewModel;
 
-
     public GalleryAdapter(Gallery context, List<QuizAppEntity> imageList, QuizAppViewModel viewModel) {
-        this.context = context; // Initialize the context
+        this.context = context;
         this.imageList = imageList;
         this.viewModel = viewModel;
     }
@@ -39,7 +37,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             super(itemView);
             imageView = itemView.findViewById(R.id.cardImageView);
             titleTextView = itemView.findViewById(R.id.cardTitleTextView);
-            deleteButton =itemView.findViewById(R.id.deleteButton);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     }
 
@@ -74,12 +72,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             holder.imageView.setImageResource(R.drawable.ic_launcher_foreground);
         }
         holder.titleTextView.setText(currentItem.getTitle());
-        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDeleteConfirmationDialog(holder.getAdapterPosition());
-            }
-        });
+        holder.deleteButton.setOnClickListener(v -> showDeleteConfirmationDialog(position));
     }
 
     @Override
@@ -87,32 +80,19 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         return imageList.size();
     }
 
-    //Method to show the delete image confirmation dialog
     private void showDeleteConfirmationDialog(int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Delete Image");
-        builder.setMessage("Are you sure you want to delete this image?");
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                deleteImage(position);
-            }
-        });
-        builder.setNegativeButton("Cancel", (dialog, which) -> {
-            // Do nothing, just dismiss the dialog
-        });
-        builder.show();
+        new AlertDialog.Builder(context)
+                .setTitle("Delete Image")
+                .setMessage("Are you sure you want to delete this image?")
+                .setPositiveButton("Delete", (dialog, which) -> deleteImage(position))
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
-    //Method to delete the image from the list
     private void deleteImage(int position) {
         QuizAppEntity imageToDelete = imageList.get(position);
-
-        // Remove from database
-        viewModel.deleteImage(imageToDelete);
-
-        // Remove from list and update UI
-        imageList.remove(position);
+        viewModel.deleteImage(imageToDelete); // Remove from database
+        imageList.remove(position); // Remove from list and update UI
         notifyItemRemoved(position);
     }
 }
