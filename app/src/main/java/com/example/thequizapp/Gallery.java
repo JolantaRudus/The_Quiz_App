@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +16,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,8 +32,9 @@ public class Gallery extends AppCompatActivity {
     private GalleryAdapter galleryAdapter;
     private QuizAppViewModel viewModel;
     private List<QuizAppEntity> imageList = new ArrayList<>();
-    private Button sortButton, quizButton, addPictureButton;
-
+    private Button sortButton, quizButton, addPictureButton, logout;
+    FirebaseAuth auth;
+    FirebaseUser user;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -55,6 +61,21 @@ public class Gallery extends AppCompatActivity {
         sortButton = findViewById(R.id.sortButton);
         quizButton = findViewById(R.id.quizButton);
         addPictureButton = findViewById(R.id.addImageButton);
+        auth = FirebaseAuth.getInstance();
+        logout = findViewById(R.id.logoutButton);
+        user = auth.getCurrentUser();
+        if(user == null) {
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        logout.setOnClickListener(v -> {
+            auth.signOut();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void setupViewModel() {
